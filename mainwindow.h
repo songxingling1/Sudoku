@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include "sudoku.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,8 +17,13 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow (QWidget* parent = nullptr);
     ~MainWindow ();
+    int num = -1;
 
 private:
     Ui::MainWindow* ui;
+    Sudoku b;
+
+private slots:
+    void Change(int x,int y,QPushButton *b);
 };
 #endif          // MAINWINDOW_H

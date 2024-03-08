@@ -40,3 +40,6 @@ CheckStatus Sudoku::check() {
     }
     return CheckStatus::SUCCESE;
 }
+int Sudoku::getNum(int x,int y) {
+    return checkerboard[x][y];
+}
