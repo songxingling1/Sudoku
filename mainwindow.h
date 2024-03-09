@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QPushButton>
+#include <QTimer>
+#include "button.h"
 #include "sudoku.h"
 
 QT_BEGIN_NAMESPACE
@@ -22,8 +23,11 @@ public:
 private:
     Ui::MainWindow* ui;
     Sudoku b;
+    vector<int> yu;
 
 private slots:
-    void Change(int x,int y,QPushButton *b);
+    void Change(int x,int y,Button *button);
+    void getNum(int n,Button *button);
+    void Erase(int x,int y);
 };
 #endif          // MAINWINDOW_H

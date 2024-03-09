@@ -12,6 +12,7 @@ class Sudoku {
 private:
     vector<vector<int>> checkerboard;
 
+
 public:
     Sudoku ();
     void erase(int x, int y);
