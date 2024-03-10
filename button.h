@@ -4,13 +4,15 @@
 #include <QPushButton>
 #include <QMouseEvent>
 #include <QTimer>
+#include <QLabel>
+#include "var.h"
 
 class Button : public QPushButton {
     Q_OBJECT
 public:
     Button (QWidget *parent = nullptr);
     QTimer *time;
-    void press();
+    void press(QLabel *label);
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event);
 signals:

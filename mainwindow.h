@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QAction>
+#include "var.h"
 #include "button.h"
 #include "sudoku.h"
 
@@ -24,10 +26,20 @@ private:
     Ui::MainWindow* ui;
     Sudoku b;
     vector<int> yu;
+    QTimer *time;
+    double t = 0;
+    int questionType = 0;
+    int min = 0;
 
 private slots:
     void Change(int x,int y,Button *button);
     void getNum(int n,Button *button);
     void Erase(int x,int y);
+    void setQuestion(QAction *act);
+    void Start();
+    void ChangeTime();
+    void Finish();
+    void Question();
+    void Clear();
 };
 #endif          // MAINWINDOW_H

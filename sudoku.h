@@ -12,8 +12,8 @@ class Sudoku {
 private:
     vector<vector<int>> checkerboard;
 
-
 public:
+    vector<vector<int>> p;
     Sudoku ();
     void erase(int x, int y);
     void change(int x,int y,int num);

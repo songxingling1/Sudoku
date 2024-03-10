@@ -1,10 +1,12 @@
 #include "sudoku.h"
 #include <vector>
+#include <QDebug>
 using namespace std;
 
-Sudoku::Sudoku ():checkerboard(10,vector<int>(10,-1)) {}
+Sudoku::Sudoku ():checkerboard(10,vector<int>(10,-1)),p(10,vector<int>(10,0)) {}
 void Sudoku::change(int x,int y,int num) {
     checkerboard[x][y] = num;
+    p[x][y] = 0;
 }
 void Sudoku::erase(int x, int y) {
     change(x,y,-1);
@@ -14,7 +16,8 @@ CheckStatus Sudoku::check() {
     for(int i = 1;i <= 9;i++) {
         tmp.clear();
         tmp.resize(10,-1);
-        for(int j = 1;j <= 9;i++) {
+        for(int j = 1;j <= 9;j++) {
+            qDebug() << i << " " << j;
             if(checkerboard[i][j] == -1) return CheckStatus::INCOMPLETE;
             if(tmp[checkerboard[i][j]] != -1) return CheckStatus::NOT_SATISFIABLE;
             tmp[checkerboard[i][j]] = 1;
@@ -24,15 +27,17 @@ CheckStatus Sudoku::check() {
         tmp.clear();
         tmp.resize(10,-1);
         for(int i = 1;i <= 9;i++) {
+            qDebug() << i << " " << j;
             if(tmp[checkerboard[i][j]] != -1) return CheckStatus::NOT_SATISFIABLE;
             tmp[checkerboard[i][j]] = 1;
         }
     }
-    for(int k = 0;k <= 9;k++) {
+    for(int k = 0;k < 9;k++) {
         tmp.clear();
         tmp.resize(10,-1);
         for(int i = 1 + dx[k];i <= 3 + dx[k];i++) {
-            for(int j = 1 + dy[k];j <= 3 + dy[k];i++) {
+            for(int j = 1 + dy[k];j <= 3 + dy[k];j++) {
+                qDebug() << i << " " << j;
                 if(tmp[checkerboard[i][j]] != -1) return CheckStatus::NOT_SATISFIABLE;
                 tmp[checkerboard[i][j]] = 1;
             }
