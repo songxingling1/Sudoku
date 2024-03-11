@@ -3,7 +3,8 @@
 #include <QDebug>
 using namespace std;
 
-Sudoku::Sudoku ():checkerboard(10,vector<int>(10,-1)),p(10,vector<int>(10,0)) {}
+Sudoku::Sudoku ():checkerboard(10,vector<int>(10,-1)),p(10,vector<int>(10,0)),row(10,vector<int>(10,0)),
+      column(10,vector<int>(10,0)),gong(10,vector<int>(10,0)){}
 void Sudoku::change(int x,int y,int num) {
     checkerboard[x][y] = num;
     p[x][y] = 0;
@@ -47,4 +48,39 @@ CheckStatus Sudoku::check() {
 }
 int Sudoku::getNum(int x,int y) {
     return checkerboard[x][y];
+}
+void Sudoku::ChangeStatus() {
+    row.clear();
+    row.resize(10,vector<int>(10,0));
+    column.clear();
+    column.resize(10,vector<int>(10,0));
+    gong.clear();
+    gong.resize(10,vector<int>(10,0));
+}
+bool Sudoku::getAnswer(int x,int y) {
+    int newx,newy;
+    newx = x + 1;
+    newy = y;
+    if(newx > 9) {
+        newy++;
+        newx = 1;
+    }
+    if(p[x][y]) {
+        return getAnswer(newx,newy);
+    }
+    bool isOk = false;
+    for(int i = 1;i <= 9;i++) {
+        if(!row[x][i] && !column[y][i] && !gong[dgong[x][y]][i]) {
+            checkerboard[x][y] = i;
+            row[x][i] = 1;
+            column[y][i] = 1;
+            gong[dgong[x][y]][i] = 1;
+            isOk = isOk || getAnswer(newx,newy);
+            checkerboard[x][y] = -1;
+            row[x][i] = 0;
+            column[y][i] = 0;
+            gong[dgong[x][y]][i] = 0;
+        }
+    }
+    return isOk;
 }

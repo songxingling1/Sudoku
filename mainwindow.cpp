@@ -225,16 +225,16 @@ void MainWindow::Start() {
     ui->text->setText("做题中...");
     changeLock = 0;
     step = 3;
-    time->start(1);
+    time->start(10);
 }
 void MainWindow::ChangeTime() {
-    t += 0.001;
+    t += 0.01;
     if(t >= 60) {
         min++;
         t = 0;
     }
     char str[20];
-    sprintf(str,"%03d:%.3f",min,t);
+    sprintf(str,"%02d:%.2f",min,t);
     ui->time->setText(QString::fromStdString(string(str)));
 }
 void MainWindow::Finish() {
@@ -284,6 +284,7 @@ void MainWindow::Clear() {
     for(int i = 1;i <= 9;i++) {
         for(int j = 1;j <= 9;j++) {
             b.erase(i,j);
+            b.p[i][j] = 0;
             ttt = "pushButton" + to_string(ind);
             tmp = this->findChild<Button*>(QString::fromStdString(ttt));
             tmp->setStyleSheet("QPushButton {"
@@ -312,7 +313,7 @@ void MainWindow::Clear() {
         tmp->setStyleSheet(QString::fromStdString(tt));
         yu[i] = 9;
     }
-    t = -0.001;
+    t = -0.01;
     min = 0;
     questionType = 0;
     questionLock = 0;
