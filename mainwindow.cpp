@@ -7,6 +7,7 @@
 #include <QCursor>
 #include <QDebug>
 #include <QMenu>
+#include <QPoint>
 #include <string>
 #include <cmath>
 #include <cstring>
@@ -50,9 +51,24 @@ MainWindow::MainWindow (QWidget* parent)
         tmp = this->findChild<Button*>(QString::fromStdString(t));
         connect(tmp,&Button::clicked,this,[=]()->void{getNum(i,tmp);});
     }
-    QMenu *menu = new QMenu();
+    secmenu = new QMenu();
+    secmenu->addAction(ui->act1);
+    secmenu->addAction(ui->act2);
+    secmenu->addAction(ui->act3);
+    secmenu->addAction(ui->act4);
+    secmenu->addAction(ui->act5);
+    secmenu->setStyleSheet("QMenu::item {"
+                            "   border-style:solid;"
+                            "   border-color:black;"
+                            "   border-width:1;"
+                            "   color:black;"
+                            "   background-color: rgb(255, 255, 255);"
+                            "   padding: 4px 4px 4px 4px"
+                            "}");
+    secmenu->setTitle("机器出题");
+    menu = new QMenu();
     menu->addAction(ui->actArtificial);
-    menu->addAction(ui->actRobot);
+    menu->addMenu(secmenu);
     menu->setStyleSheet("QMenu::item {"
                         "   border-style:solid;"
                         "   border-color:black;"
@@ -61,8 +77,9 @@ MainWindow::MainWindow (QWidget* parent)
                         "   background-color: rgb(255, 255, 255);"
                         "   padding: 4px 4px 4px 4px"
                         "}");
-    ui->questionbar->setMenu(menu);
-    connect(ui->questionbar,&QToolButton::triggered,this,&MainWindow::setQuestion);
+    connect(menu,&QMenu::triggered,this,&MainWindow::setQuestion);
+    connect(ui->questionType,&QPushButton::clicked,this,&MainWindow::showMainMenu);
+    connect(secmenu,&QMenu::triggered,this,&MainWindow::showSecondMenu);
     connect(ui->start,&QPushButton::clicked,this,&MainWindow::Start);
     connect(this->time,&QTimer::timeout,this,&MainWindow::ChangeTime);
     connect(ui->finish,&QPushButton::clicked,this,&MainWindow::Finish);
@@ -306,7 +323,24 @@ void MainWindow::Question() {
             return;
         }
         QJsonArray rootArray = doc.array();
-        int id = rand() % 24;
+        int id;
+        QString strs;
+        if(level == 1) {
+            id = rand() % 20;
+            strs = "入门级";
+        } else if(level == 2) {
+            id = rand() % 10 + 20;
+            strs = "初级";
+        } else if(level == 3) {
+            id = rand() % 10 + 30;
+            strs = "中级";
+        } else if(level == 4) {
+            id = rand() % 5 + 40;
+            strs = "高级";
+        } else {
+            id = rand() % 6 + 45;
+            strs = "骨灰级";
+        }
         QJsonArray board = rootArray.at(id).toObject().value("board").toArray();
         int ind = 1;
         for(int i = 1;i <= 9;i++) {
@@ -325,7 +359,7 @@ void MainWindow::Question() {
         changeLock = 1;
         questionLock = 0;
         step = 2;
-        ui->text->setText("机器出题完成！");
+        ui->text->setText("机器出题完成！\n难度：" + strs);
     }
 }
 void MainWindow::Clear() {
@@ -376,6 +410,7 @@ void MainWindow::Clear() {
     ui->text->setText("数独游戏");
     ChangeTime();
     step = 0;
+    level = 0;
 }
 void MainWindow::getAnswer() {
     if(step == 0) {
@@ -428,4 +463,21 @@ void MainWindow::getAnswer() {
     step = 4;
     questionLock = 0;
     changeLock = 1;
+}
+void MainWindow::showMainMenu() {
+    menu->move(ui->questionType->mapToGlobal(QPoint(0,ui->questionType->height())));
+    menu->show();
+}
+void MainWindow::showSecondMenu(QAction *act) {
+    if(act->objectName() == "act1") {
+        level = 1;
+    } else if(act->objectName() == "act2") {
+        level = 2;
+    } else if(act->objectName() == "act3") {
+        level = 3;
+    } else if(act->objectName() == "act4") {
+        level = 4;
+    } else {
+        level = 5;
+    }
 }

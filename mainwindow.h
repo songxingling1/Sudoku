@@ -27,9 +27,12 @@ private:
     Sudoku b;
     vector<int> yu;
     QTimer *time;
+    QMenu *menu;
+    QMenu *secmenu;
     double t = 0;
     int questionType = 0;
     int min = 0;
+    int level = 0;
 
 private slots:
     void Change(int x,int y,Button *button);
@@ -42,5 +45,7 @@ private slots:
     void Question();
     void Clear();
     void getAnswer();
+    void showMainMenu();
+    void showSecondMenu(QAction *act);
 };
 #endif          // MAINWINDOW_H

@@ -3898,9 +3898,9 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="100,455,1,100">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="100,377,1,100">
           <property name="spacing">
-           <number>5</number>
+           <number>0</number>
           </property>
           <item>
            <spacer name="horizontalSpacer">
@@ -3936,40 +3936,40 @@
     border-color:black;
 	border-width:3;
 	color:black;
+	margin-right:-10px;
 }</string>
             </property>
             <property name="text">
              <string>出题</string>
             </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="questionbar">
+           <widget class="QPushButton" name="questionType">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
             <property name="styleSheet">
-             <string notr="true">QToolButton {
+             <string notr="true">QPushButton {
 	border-style:solid;
     border-color:black;
 	border-width:3;
 	color:black;
-}
-QToolButton::menu-indicator {
-	image:none;
 }</string>
             </property>
             <property name="text">
-             <string>...</string>
-            </property>
-            <property name="popupMode">
-             <enum>QToolButton::InstantPopup</enum>
-            </property>
-            <property name="arrowType">
-             <enum>Qt::DownArrow</enum>
+             <string>⇓</string>
             </property>
            </widget>
           </item>
@@ -4357,6 +4357,55 @@ QToolButton::menu-indicator {
    </property>
    <property name="toolTip">
     <string>机器出题</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="act1">
+   <property name="text">
+    <string>入门难度</string>
+   </property>
+   <property name="toolTip">
+    <string>入门难度</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="act2">
+   <property name="text">
+    <string>初级难度</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="act3">
+   <property name="text">
+    <string>中级难度</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="act4">
+   <property name="text">
+    <string>高级难度</string>
+   </property>
+   <property name="toolTip">
+    <string>高级难度</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="act5">
+   <property name="text">
+    <string>骨灰级难度</string>
+   </property>
+   <property name="toolTip">
+    <string>骨灰级难度</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
