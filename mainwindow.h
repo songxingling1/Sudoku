@@ -41,5 +41,6 @@ private slots:
     void Finish();
     void Question();
     void Clear();
+    void getAnswer();
 };
 #endif          // MAINWINDOW_H

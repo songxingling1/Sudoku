@@ -50,37 +50,58 @@ int Sudoku::getNum(int x,int y) {
     return checkerboard[x][y];
 }
 void Sudoku::ChangeStatus() {
+    startOk = true;
     row.clear();
     row.resize(10,vector<int>(10,0));
     column.clear();
     column.resize(10,vector<int>(10,0));
     gong.clear();
     gong.resize(10,vector<int>(10,0));
+    for(int i = 1;i <= 9;i++) {
+        for(int j = 1;j <= 9;j++) {
+            if(p[i][j]) {
+                if(row[i][checkerboard[i][j]] ||
+                    column[j][checkerboard[i][j]] || gong[dgong[i][j]][checkerboard[i][j]]) {
+                    startOk = false;
+                    return;
+                }
+                row[i][checkerboard[i][j]] = 1;
+                column[j][checkerboard[i][j]] = 1;
+                gong[dgong[i][j]][checkerboard[i][j]] = 1;
+            }
+        }
+    }
 }
 bool Sudoku::getAnswer(int x,int y) {
+    if(!startOk) {
+        return false;
+    }
     int newx,newy;
-    newx = x + 1;
-    newy = y;
-    if(newx > 9) {
-        newy++;
-        newx = 1;
+    newx = x;
+    newy = y + 1;
+    if(newy > 9) {
+        newx++;
+        newy = 1;
     }
     if(p[x][y]) {
+        if(newx > 9) return true;
         return getAnswer(newx,newy);
     }
-    bool isOk = false;
     for(int i = 1;i <= 9;i++) {
         if(!row[x][i] && !column[y][i] && !gong[dgong[x][y]][i]) {
             checkerboard[x][y] = i;
             row[x][i] = 1;
             column[y][i] = 1;
             gong[dgong[x][y]][i] = 1;
-            isOk = isOk || getAnswer(newx,newy);
+            if(x == 9 && y == 9) {
+                return true;
+            }
+            if(getAnswer(newx,newy) == true) return true;
             checkerboard[x][y] = -1;
             row[x][i] = 0;
             column[y][i] = 0;
             gong[dgong[x][y]][i] = 0;
         }
     }
-    return isOk;
+    return false;
 }

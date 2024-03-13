@@ -23,18 +23,19 @@ enum class CheckStatus {
 class Sudoku {
 private:
     vector<vector<int>> checkerboard;
+    bool startOk;
+
+public:
     vector<vector<int>> row;
     vector<vector<int>> column;
     vector<vector<int>> gong;
-
-public:
     vector<vector<int>> p;
     Sudoku ();
     void erase(int x, int y);
     void change(int x,int y,int num);
     int getNum(int x,int y);
     CheckStatus check();
-    void getAnswer(int x = 1,int y = 1);
+    bool getAnswer(int x = 1,int y = 1);
     void ChangeStatus();
 };
 

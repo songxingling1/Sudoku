@@ -11,7 +11,13 @@
 #include <cmath>
 #include <cstring>
 #include <iomanip>
-#include <QList>
+#include <QFile>
+#include <QTextStream>
+#include <QJsonParseError>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonValue>
 using namespace std;
 
 MainWindow::MainWindow (QWidget* parent)
@@ -62,6 +68,7 @@ MainWindow::MainWindow (QWidget* parent)
     connect(ui->finish,&QPushButton::clicked,this,&MainWindow::Finish);
     connect(ui->question,&QPushButton::clicked,this,&MainWindow::Question);
     connect(ui->clear,&QPushButton::clicked,this,&MainWindow::Clear);
+    connect(ui->decrypt,&QPushButton::clicked,this,&MainWindow::getAnswer);
 }
 
 MainWindow::~MainWindow () {
@@ -85,13 +92,13 @@ void MainWindow::Change(int x, int y, Button *button) {
         button->setText("");
         b.erase(x,y);
         b.p[x][y] = 0;
-        button->setStyleSheet("QPushButton {"
+        button->setStyleSheet("Button {"
                                "    border-style:solid;"
                                "    border-color:black;"
                                "    border-width:3;"
                                "    color:black;"
                                "    font-family:\"STSong\";"
-                               "    font-size:23px;"
+                               "    font-size:30px;"
                                "    font-weight:bold;"
                                "}");
         return;
@@ -112,13 +119,13 @@ void MainWindow::Change(int x, int y, Button *button) {
     num = -1;
     b.p[x][y] = questionLock;
     if(questionLock) {
-        button->setStyleSheet("QPushButton {"
+        button->setStyleSheet("Button {"
                                "    border-style:solid;"
                                "    border-color:black;"
                                "    border-width:3;"
                                "    color:black;"
                                "    font-family:\"STSong\";"
-                               "    font-size:23px;"
+                               "    font-size:30px;"
                                "    font-weight:bold;"
                                "    background-color: rgba(174, 229, 161, 190);"
                                "}");
@@ -221,6 +228,7 @@ void MainWindow::Start() {
     }
     if(step == 4) {
         ui->text->setText("请先清盘！");
+        return;
     }
     ui->text->setText("做题中...");
     changeLock = 0;
@@ -264,17 +272,60 @@ void MainWindow::Finish() {
     ui->text->setText("没有正在进行的任务！");
 }
 void MainWindow::Question() {
+    if(step == 1) {
+        ui->text->setText("正在出题！");
+        return;
+    }
+    if(step >= 2) {
+        ui->text->setText("请先清盘！");
+        return;
+    }
     if(questionType == 0) {
         ui->text->setText("请选择出题方式！");
         return;
     }
+    changeLock = 0;
+    questionLock = 1;
+    step = 1;
     if(questionType == 1) {
-        changeLock = 0;
-        questionLock = 1;
-        step = 1;
         ui->text->setText("正在出题...");
     } else {
-        // TODO : 自动放数
+        QFile *file = new QFile(":/json/questions.json");
+        if (!file->open(QFile::ReadOnly | QFile::Text)) {
+            qDebug() << "can't open error!";
+            return;
+        }
+        QTextStream *stream = new QTextStream(file);
+        stream->setEncoding(QStringConverter::System);
+        QString str = stream->readAll();
+        file->close();
+        QJsonParseError *jsonError = new QJsonParseError();
+        QJsonDocument doc = QJsonDocument::fromJson(str.toUtf8(),jsonError);
+        if (jsonError->error != QJsonParseError::NoError && !doc.isNull()) {
+            qDebug() << "Json格式错误！" << jsonError->error;
+            return;
+        }
+        QJsonArray rootArray = doc.array();
+        int id = rand() % 24;
+        QJsonArray board = rootArray.at(id).toObject().value("board").toArray();
+        int ind = 1;
+        for(int i = 1;i <= 9;i++) {
+            QJsonArray row = board.at(i - 1).toArray();
+            for(int j = 1;j <= 9;j++) {
+                int thisNum = row.at(j - 1).toInt();
+                if(thisNum == -1) {
+                    ind++;
+                    continue;
+                }
+                getNum(thisNum,this->findChild<Button*>(QString::fromStdString("pushButton_" + to_string(thisNum))));
+                Change(i,j,this->findChild<Button*>(QString::fromStdString("pushButton" + to_string(ind))));
+                ind++;
+            }
+        }
+        changeLock = 1;
+        questionLock = 0;
+        step = 2;
+        ui->text->setText("机器出题完成！");
     }
 }
 void MainWindow::Clear() {
@@ -324,4 +375,57 @@ void MainWindow::Clear() {
     ui->question->setText("出题");
     ui->text->setText("数独游戏");
     ChangeTime();
+    step = 0;
+}
+void MainWindow::getAnswer() {
+    if(step == 0) {
+        ui->text->setText("请先出题！");
+        return;
+    }
+    if(step == 1) {
+        ui->text->setText("正在出题！");
+        return;
+    }
+    if(step == 3) {
+        time->stop();
+    }
+    if(step == 4) {
+        ui->text->setText("请先清盘！");
+        return;
+    }
+    b.ChangeStatus();
+    bool isOk = b.getAnswer();
+    if(!isOk) {
+        ui->text->setText("抱歉，我做不出来！");
+        return;
+    }
+    Button *tmp;
+    string ttt;
+    int ind = 1;
+    for(int i = 1;i <= 9;i++) {
+        for(int j = 1;j <= 9;j++) {
+            ttt = "pushButton" + to_string(ind);
+            tmp = this->findChild<Button*>(QString::fromStdString(ttt));
+            tmp->setText(QString::fromStdString(to_string(b.getNum(i,j))));
+            ind++;
+        }
+    }
+    string tt;
+    for(int i = 1;i <= 9;i++) {
+        ttt = "pushButton_" + to_string(i);
+        tmp = this->findChild<Button*>(QString::fromStdString(ttt));
+        tt = "Button {"
+             "  border-style:solid;"
+             "  border-color:black;"
+             "  border-width:3;"
+             "  background-repeat:repeat-x;"
+             "  background-image: url(:/img/has0.png);"
+             "}";
+        tmp->setStyleSheet(QString::fromStdString(tt));
+        yu[i] = 0;
+    }
+    ui->text->setText("揭秘完成！");
+    step = 4;
+    questionLock = 0;
+    changeLock = 1;
 }
