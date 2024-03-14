@@ -15,10 +15,14 @@ void Sudoku::erase(int x, int y) {
 CheckStatus Sudoku::check() {
     vector<int> tmp;
     for(int i = 1;i <= 9;i++) {
+        for(int j = 1;j <= 9;j++) {
+            if(checkerboard[i][j] == -1) return CheckStatus::INCOMPLETE;
+        }
+    }
+    for(int i = 1;i <= 9;i++) {
         tmp.clear();
         tmp.resize(10,-1);
         for(int j = 1;j <= 9;j++) {
-            qDebug() << i << " " << j;
             if(checkerboard[i][j] == -1) return CheckStatus::INCOMPLETE;
             if(tmp[checkerboard[i][j]] != -1) return CheckStatus::NOT_SATISFIABLE;
             tmp[checkerboard[i][j]] = 1;

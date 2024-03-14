@@ -19,6 +19,7 @@
         <file>img/has7.png</file>
         <file>img/has8.png</file>
         <file>img/has9.png</file>
+        <file>img/ico.png</file>
     </qresource>
     <qresource prefix="/json">
         <file>questions.json</file>

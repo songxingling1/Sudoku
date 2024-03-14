@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1135</width>
-    <height>855</height>
+    <width>1132</width>
+    <height>780</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,14 +22,12 @@
     <height>0</height>
    </size>
   </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>16777215</height>
-   </size>
-  </property>
   <property name="windowTitle">
    <string>数独游戏</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="pic.qrc">
+    <normaloff>:/img/ico.png</normaloff>:/img/ico.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">MainWindow {
@@ -42,6 +40,11 @@
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralwidget {
+	margin: 10px;
+}</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
@@ -3440,7 +3443,7 @@
              <widget class="QLabel" name="label">
               <property name="font">
                <font>
-                <family>FandolSong</family>
+                <family>华文宋体</family>
                 <pointsize>23</pointsize>
                 <bold>true</bold>
                </font>
@@ -3484,7 +3487,7 @@
              <widget class="QLabel" name="label_2">
               <property name="font">
                <font>
-                <family>FandolSong</family>
+                <family>华文宋体</family>
                 <pointsize>23</pointsize>
                 <bold>true</bold>
                </font>
@@ -3528,7 +3531,7 @@
              <widget class="QLabel" name="label_3">
               <property name="font">
                <font>
-                <family>FandolSong</family>
+                <family>华文宋体</family>
                 <pointsize>23</pointsize>
                 <bold>true</bold>
                </font>
@@ -3572,7 +3575,7 @@
              <widget class="QLabel" name="label_4">
               <property name="font">
                <font>
-                <family>FandolSong</family>
+                <family>华文宋体</family>
                 <pointsize>23</pointsize>
                 <bold>true</bold>
                </font>
@@ -3616,7 +3619,7 @@
              <widget class="QLabel" name="label_5">
               <property name="font">
                <font>
-                <family>FandolSong</family>
+                <family>华文宋体</family>
                 <pointsize>23</pointsize>
                 <bold>true</bold>
                </font>
@@ -3660,7 +3663,7 @@
              <widget class="QLabel" name="label_6">
               <property name="font">
                <font>
-                <family>FandolSong</family>
+                <family>华文宋体</family>
                 <pointsize>23</pointsize>
                 <bold>true</bold>
                </font>
@@ -3704,7 +3707,7 @@
              <widget class="QLabel" name="label_7">
               <property name="font">
                <font>
-                <family>FandolSong</family>
+                <family>华文宋体</family>
                 <pointsize>23</pointsize>
                 <bold>true</bold>
                </font>
@@ -3748,7 +3751,7 @@
              <widget class="QLabel" name="label_8">
               <property name="font">
                <font>
-                <family>FandolSong</family>
+                <family>华文宋体</family>
                 <pointsize>23</pointsize>
                 <bold>true</bold>
                </font>
@@ -3792,7 +3795,7 @@
              <widget class="QLabel" name="label_9">
               <property name="font">
                <font>
-                <family>FandolSong</family>
+                <family>华文宋体</family>
                 <pointsize>23</pointsize>
                 <bold>true</bold>
                </font>
@@ -3855,7 +3858,7 @@
          </property>
          <property name="font">
           <font>
-           <family>FandolSong</family>
+           <family>华文宋体</family>
            <pointsize>31</pointsize>
            <bold>true</bold>
            <underline>false</underline>
@@ -3898,7 +3901,7 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="100,377,1,100">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,5,1">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -3916,62 +3919,70 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="question">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="8,2">
+            <property name="spacing">
+             <number>0</number>
             </property>
-            <property name="font">
-             <font>
-              <family>FandolSong</family>
-              <pointsize>24</pointsize>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
+            <item>
+             <widget class="QPushButton" name="question">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>华文宋体</family>
+                <pointsize>24</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
 	border-style:solid;
     border-color:black;
 	border-width:3;
 	color:black;
 	margin-right:-10px;
 }</string>
-            </property>
-            <property name="text">
-             <string>出题</string>
-            </property>
-            <property name="flat">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="questionType">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
+              </property>
+              <property name="text">
+               <string>出题</string>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="questionType">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>8</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
 	border-style:solid;
     border-color:black;
 	border-width:3;
 	color:black;
 }</string>
-            </property>
-            <property name="text">
-             <string>⇓</string>
-            </property>
-           </widget>
+              </property>
+              <property name="text">
+               <string>▼</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <spacer name="horizontalSpacer_2">
@@ -4025,32 +4036,67 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="start">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="80,19">
+            <property name="spacing">
+             <number>0</number>
             </property>
-            <property name="font">
-             <font>
-              <family>FandolSong</family>
-              <pointsize>24</pointsize>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
+            <item>
+             <widget class="QPushButton" name="start">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>华文宋体</family>
+                <pointsize>24</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	border-style:solid;
+    border-color:black;
+	border-width:3;
+	color:black;
+	margin-right:-10px;
+}</string>
+              </property>
+              <property name="text">
+               <string>开始</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="stop">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
 	border-style:solid;
     border-color:black;
 	border-width:3;
 	color:black;
 }</string>
-            </property>
-            <property name="text">
-             <string>开始</string>
-            </property>
-           </widget>
+              </property>
+              <property name="text">
+               <string>𝗹𝗹</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <spacer name="horizontalSpacer_4">
@@ -4107,7 +4153,7 @@
            <widget class="QPushButton" name="finish">
             <property name="font">
              <font>
-              <family>FandolSong</family>
+              <family>华文宋体</family>
               <pointsize>24</pointsize>
               <bold>true</bold>
              </font>
@@ -4180,7 +4226,7 @@
            <widget class="QPushButton" name="decrypt">
             <property name="font">
              <font>
-              <family>FandolSong</family>
+              <family>华文宋体</family>
               <pointsize>24</pointsize>
               <bold>true</bold>
              </font>
@@ -4246,7 +4292,7 @@
           <widget class="QPushButton" name="clear">
            <property name="font">
             <font>
-             <family>FandolSong</family>
+             <family>华文宋体</family>
              <pointsize>24</pointsize>
              <bold>true</bold>
             </font>
@@ -4302,8 +4348,8 @@
          </property>
          <property name="font">
           <font>
-           <family>FandolSong</family>
-           <pointsize>25</pointsize>
+           <family>华文宋体</family>
+           <pointsize>19</pointsize>
            <bold>true</bold>
            <underline>false</underline>
           </font>
@@ -4334,8 +4380,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1135</width>
-     <height>24</height>
+     <width>1132</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
@@ -4419,6 +4465,8 @@
    <header>button.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="pic.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -19,6 +19,7 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        ico.rc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -30,6 +31,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         button.h button.cpp
         var.h
         var.cpp
+        ico.rc
 
     )
 # Define target properties for Android with Qt 6 as:

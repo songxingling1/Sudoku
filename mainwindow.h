@@ -47,5 +47,6 @@ private slots:
     void getAnswer();
     void showMainMenu();
     void showSecondMenu(QAction *act);
+    void stopTimer();
 };
 #endif          // MAINWINDOW_H

@@ -77,6 +77,7 @@ MainWindow::MainWindow (QWidget* parent)
                         "   background-color: rgb(255, 255, 255);"
                         "   padding: 4px 4px 4px 4px"
                         "}");
+    connect(ui->stop,&QPushButton::clicked,this,&MainWindow::stopTimer);
     connect(menu,&QMenu::triggered,this,&MainWindow::setQuestion);
     connect(ui->questionType,&QPushButton::clicked,this,&MainWindow::showMainMenu);
     connect(secmenu,&QMenu::triggered,this,&MainWindow::showSecondMenu);
@@ -421,7 +422,7 @@ void MainWindow::getAnswer() {
         ui->text->setText("正在出题！");
         return;
     }
-    if(step == 3) {
+    if(step == 3 && time->isActive()) {
         time->stop();
     }
     if(step == 4) {
@@ -479,5 +480,26 @@ void MainWindow::showSecondMenu(QAction *act) {
         level = 4;
     } else {
         level = 5;
+    }
+}
+void MainWindow::stopTimer() {
+    if(step == 0 || step == 4) {
+        ui->text->setText("没有正在进行的任务!");
+        return;
+    }
+    if(step == 2) {
+        ui->text->setText("请先开始！");
+        return;
+    }
+    if(step == 1) {
+        ui->text->setText("现在不可以暂停");
+        return;
+    }
+    if(time->isActive()) {
+        time->stop();
+        ui->stop->setText("▶");
+    } else {
+        time->start();
+        ui->stop->setText("𝗹𝗹");
     }
 }
