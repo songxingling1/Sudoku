@@ -3,4 +3,5 @@
 extern int questionLock;
 extern int changeLock;
 extern int step;
+extern int stopLock;
 #endif          // VAR_H

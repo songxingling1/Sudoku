@@ -9,5 +9,9 @@ void Button::press(QLabel *label) {
         label->setText("请先出题/开始！");
         return;
     }
+    if(stopLock) {
+        label->setText("正在暂停！");
+        return;
+    }
     time->start(250);
 }

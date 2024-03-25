@@ -154,6 +154,10 @@ void MainWindow::getNum(int n,Button *button) {
         ui->text->setText("请先出题/开始！");
         return;
     }
+    if(stopLock) {
+        ui->text->setText("正在暂停！");
+        return;
+    }
     if(num == -1 && yu[n] == 0) {
         return;
     }
@@ -191,6 +195,10 @@ void MainWindow::getNum(int n,Button *button) {
 void MainWindow::Erase(int x,int y) {
     if(changeLock) {
         ui->text->setText("请先出题/开始！");
+        return;
+    }
+    if(stopLock) {
+        ui->text->setText("正在暂停！");
         return;
     }
     if(!questionLock && b.p[x][y]) {
@@ -276,7 +284,7 @@ void MainWindow::Finish() {
         if(check == CheckStatus::SUCCESE) {
             ui->text->setText("通过！");
             changeLock = 1;
-            time->stop();
+            if(time->isActive()) time->stop();
             step = 4;
             return;
         } else if(check == CheckStatus::INCOMPLETE) {
@@ -407,11 +415,12 @@ void MainWindow::Clear() {
     if(time->isActive()) {
         time->stop();
     }
-    ui->question->setText("出题");
-    ui->text->setText("数独游戏");
+    ui->question->setText("出题方式");
+    ui->text->setText("数独游戏\n开发者：宋星霖");
     ChangeTime();
     step = 0;
     level = 0;
+    stopLock = 0;
 }
 void MainWindow::getAnswer() {
     if(step == 0) {
@@ -429,6 +438,7 @@ void MainWindow::getAnswer() {
         ui->text->setText("请先清盘！");
         return;
     }
+    stopLock = 0;
     b.ChangeStatus();
     bool isOk = b.getAnswer();
     if(!isOk) {
@@ -498,8 +508,12 @@ void MainWindow::stopTimer() {
     if(time->isActive()) {
         time->stop();
         ui->stop->setText("▶");
+        stopLock = 1;
+        ui->text->setText("暂停...");
     } else {
         time->start();
         ui->stop->setText("𝗹𝗹");
+        stopLock = 0;
+        ui->text->setText("正在做题...");
     }
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1132</width>
-    <height>780</height>
+    <height>788</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>0</height>
+    <width>1132</width>
+    <height>788</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -40,6 +40,17 @@
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>769</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget#centralwidget {
@@ -3931,11 +3942,18 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>50</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>华文宋体</family>
-                <pointsize>24</pointsize>
+                <pointsize>20</pointsize>
                 <bold>true</bold>
+                <kerning>true</kerning>
                </font>
               </property>
               <property name="styleSheet">
@@ -3948,7 +3966,7 @@
 }</string>
               </property>
               <property name="text">
-               <string>出题</string>
+               <string>出题方式</string>
               </property>
               <property name="flat">
                <bool>false</bool>
@@ -4349,7 +4367,7 @@
          <property name="font">
           <font>
            <family>华文宋体</family>
-           <pointsize>19</pointsize>
+           <pointsize>17</pointsize>
            <bold>true</bold>
            <underline>false</underline>
           </font>
@@ -4363,7 +4381,8 @@
 }</string>
          </property>
          <property name="text">
-          <string>数独游戏</string>
+          <string>数独游戏
+开发者：宋星霖</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
